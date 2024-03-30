@@ -1,4 +1,8 @@
+// Define product model: classes and its methods to interact with the database
+
 import {Client} from '../database';
+
+// Define properties of product types to be used in the ProductStore class
 
 export type Product = {
   name: string;
@@ -6,11 +10,19 @@ export type Product = {
   category: string;
 };
 
-export type ProductWithID = Product & {
+export type ProductWithID = Product & { // extends Product
   id: number;
 };
 
+/**
+ * Class that interacts with the database to perform CRUD operations on products, contains following methods:
+ */
 export class ProductStore {
+  /**
+   * Shows all products from the products table of the database
+   *
+   * @returns {Promise<ProductWithID[]>} An array of product objects
+   */
   async index(): Promise<ProductWithID[]> {
     try {
       const sql = 'SELECT * FROM products';
@@ -23,6 +35,12 @@ export class ProductStore {
     }
   }
 
+  /**
+   * Shows a specific product from the products table of the database
+   *
+   * @param {string} id - The ID of the product to show
+   * @returns {Promise<ProductWithID>} The product object with the provided ID
+   */
   async show(id: string): Promise<ProductWithID> {
     try {
       const sql = 'SELECT * FROM products WHERE id=($1)';
@@ -35,6 +53,12 @@ export class ProductStore {
     }
   }
 
+  /**
+   * Shows all products from the products table of the database by category
+   *
+   * @param {string} category - The category of the products to show
+   * @returns {Promise<ProductWithID[]>} An array of product objects with the provided category
+   */
   async indexByCategory(category: string): Promise<ProductWithID[]> {
     try {
       const sql = 'SELECT * FROM products WHERE category=($1)';
@@ -49,6 +73,11 @@ export class ProductStore {
     }
   }
 
+  /** Creates a new product in the products table of the database 
+   * 
+   * @param {Product} p - The product object to create 
+   * @returns {Promise<ProductWithID>} The created product object 
+   */
   async create(p: Product): Promise<ProductWithID> {
     try {
       const sql =
@@ -63,6 +92,12 @@ export class ProductStore {
     }
   }
 
+  /**
+   * Updates a product in the products table of the database
+   *
+   * @param {ProductWithID} p - The product object to update
+   * @returns {Promise<ProductWithID>} The updated product object
+   */
   async update(p: ProductWithID): Promise<ProductWithID> {
     try {
       const sql =
@@ -77,6 +112,12 @@ export class ProductStore {
     }
   }
 
+  /**
+   * Deletes a product from the products table of the database
+   *
+   * @param {string} id - The ID of the product to delete
+   * @returns {Promise<ProductWithID>} The deleted product object
+   */
   async delete(id: string): Promise<ProductWithID> {
     try {
       const sql = 'DELETE FROM products WHERE id=($1) RETURNING *';

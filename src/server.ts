@@ -1,3 +1,5 @@
+// The entry point for the application. It creates an express server and defines routes for the app.
+
 import express, { Request, Response } from 'express';
 import bodyParser from 'body-parser';
 import userRoutes from './handlers/userHandlers';
@@ -6,26 +8,33 @@ import orderRoutes from './handlers/orderHandlers';
 import dashboardRoutes from './handlers/dashboardHandlers';
 import cors from 'cors';
 
+// Create a new express server
 const app: express.Application = express();
-const address: string = '0.0.0.0:3000';
+const address: string = '0.0.0.0:3000'; 
 
+// CORS configuration 
 const corsOptions = {
-  origin: '*', // Name of the domain (can be changed in the future)
-  optionsSuccessStatus: 200,
+  origin: '*', // Name of the domain - "for all requests" (can be changed in the future)
+  optionsSuccessStatus: 200, 
 };
 
-app.use(cors(corsOptions));
+// Use CORS middleware
+app.use(cors(corsOptions)); 
 
-app.use(bodyParser.json());
+// Use body parser middleware. Body-parser extracts the entire body portion of an incoming request stream and exposes it on req.body
+app.use(bodyParser.json()); 
 
-app.get('/', function (req: Request, res: Response) {
-  res.send('Hello World!');
+// Define a route handler for the default home page
+app.get('/', (req: Request, res: Response) => {
+  res.send('This is API');
 });
 
-app.listen(3000, function () {
+// Start the Express server
+app.listen(3000, () => {
   console.log(`starting app on: ${address}`);
 });
 
+// Define routes for the app
 userRoutes(app);
 productRoutes(app);
 orderRoutes(app);
