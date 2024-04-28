@@ -1,6 +1,6 @@
 # Online Store API with Postgres
 
-PostgreSQL | Node/Express | dotenv | db-migrate | jsonwebtoken | jasmine | TypeScript | Supertest | bcrypt | CORS
+TypeScript | PostgreSQL | Node.js | Express | Dotenv | Db-migrate | Jsonwebtoken | Jasmine | Supertest | Bcrypt | CORS
 
 A RESTful API has been developed to support the online store application, containing a Database SQL schema intended for use by frontend developers. It includes authentication, required endpoints, and data types for users, products, orders, and consolidated tables within the database.
 
