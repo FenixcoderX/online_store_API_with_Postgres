@@ -41,7 +41,6 @@ export class OrderStore {
       const conn = await Client.connect();
       const result = await conn.query(sql);
       conn.release();
-      //console.log (result.rows);
       return result.rows;
     } catch (err) {
       throw new Error(`Could not get orders. Error: ${err}`);
@@ -116,7 +115,6 @@ export class OrderStore {
       if ((await this.currentOrder(JSON.stringify(o.user_id))) === undefined) {
         const result = await conn.query(sql, [o.user_id, o.status]);
         const order = result.rows[0];
-        //console.log('Return from the database after creating an order', order);
         conn.release();
         return order;
       }
